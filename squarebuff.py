@@ -40,10 +40,7 @@ def squarebuffers(originX, originY, sideLength=1609.34):
 
 
 def createFeatures(coordList):
-    
-    featureList = []  #list that will contain the Polygon features
-    
- 
+        
     for feature in coordList:
         point = arcpy.Point()
         array = arcpy.Array()
@@ -59,26 +56,24 @@ def createFeatures(coordList):
                 
         featureList.append(polygon)
     
-    # return a list containg the 4 square polygons around the point
-    return featureList
 
- 
+
+featureList = []  #list that will contain the Polygon features 
+
 
 
 # Loop through all of the center points here
-# Send the x, y coords to squarebuffers() to obtain list of square coordinates
-# Send the list of lists of coordinates to 
 
-testX = 425000
-testY = 4498000
+test1X = 425000
+test1Y = 4498000
 
+test2X = 438000
+test2Y = 4458000
 
-coordList = squarebuffers(testX, testY)
+createFeatures(squarebuffers(test1X, test1Y))
+createFeatures(squarebuffers(test2X, test2Y))
 
-fourSqPoly = createFeatures(coordList)
+arcpy.CopyFeatures_management(featureList, "C:/test/polygons.shp")
 
-
-# output all of the polygon features to a shapefile     
-arcpy.CopyFeatures_management(fourSqPoly, "C:/test/polygons.shp")
 
 
